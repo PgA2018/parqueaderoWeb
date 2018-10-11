@@ -1,0 +1,8 @@
+.color-barranav {
+    background-color: #73efed;
+}
+
+nav ul li a,
+nav div a {
+    color: white;
+}
