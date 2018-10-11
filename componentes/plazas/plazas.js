@@ -1,3 +1,5 @@
+import { api } from "../../config/config.js";
+
 var plazas = Vue.component('plazas', {
     template: `
     <div class="row">
@@ -6,15 +8,15 @@ var plazas = Vue.component('plazas', {
             <div class="form">
                 <form action="" class="text-center">
                     <br>
-                    <input v-model="id_vehiculo" v-on:keyup.enter="crear" type="text" class="form-control" placeholder="Id_vehiculo">
+                    <input v-model="plaza.id_vehiculo" v-on:keyup.enter="crear" type="text" class="form-control" placeholder="Id_vehiculo">
                     <br>
-                    <input v-model="llave" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Llave">
+                    <input v-model="plaza.llave" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Llave">
                     <br>
-                    <input v-model="techo" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Techo">
+                    <input v-model="plaza.techo" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Techo">
                     <br>
-                    <input v-model="id_sucursal" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Id_sucursal">
+                    <input v-model="plaza.id_sucursal" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Id_sucursal">
                     <br>
-                    <input v-model="disponible" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Disponible">
+                    <input v-model="plaza.disponible" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Disponible">
                     <br>
                     <input v-on:click="crear" type="button" value="Agregar" class="btn btn-success">
                     <br><br>
@@ -43,24 +45,24 @@ var plazas = Vue.component('plazas', {
                             <td> {{con.id}} </td>
                             <td>
                                 <div v-if=" modId== con.id">
-                                    <input v-model="id_vehiculoUpdate" v-on:keyup.enter="crear" type="text" class="form-control" placeholder="Id_Vehiculo">
+                                    <input v-model="plazaUpdate.id_vehiculo" v-on:keyup.enter="crear" type="text" class="form-control" placeholder="Id_Vehiculo">
                                 </div>
                                 <div v-else>{{con.id_vehiculo}}</div>
                             </td>
                             <td>
-                                <div v-if="modId == con.id"><input v-model="llaveUpdate" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Llave"></div>
+                                <div v-if="modId == con.id"><input v-model="plazaUpdate.llave" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Llave"></div>
                                 <div v-else>{{con.llave}}</div>
                             </td>
                             <td>
-                                <div v-if="modId == con.id"><input v-model="techoUpdate" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Correo"></div>
+                                <div v-if="modId == con.id"><input v-model="plazaUpdate.techo" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Correo"></div>
                                 <div v-else>{{con.techo}}</div>
                             </td>
                             <td>
-                                <div v-if="modId == con.id"><input v-model="id_sucursalUpdate" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Id_sucursal"></div>
+                                <div v-if="modId == con.id"><input v-model="plazaUpdate.id_sucursal" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Id_sucursal"></div>
                                 <div v-else>{{con.id_sucursal}}</div>
                             </td>
                             <td>
-                                <div v-if="modId == con.id"><input v-model="disponibleUpdate" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Disponible"></div>
+                                <div v-if="modId == con.id"><input v-model="plazaUpdate.disponible" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="Disponible"></div>
                                 <div v-else>{{con.disponible}}</div>
                             </td>
                             <td>
@@ -81,17 +83,21 @@ var plazas = Vue.component('plazas', {
     `,
     data: function() {
         return {
-            id_vehiculo: "",
-            llave: "",
-            techo: "",
-            id_sucursal: "",
-            disponible: "",
-            id_vehiculoUpdate: "",
-            llaveUpdate: "",
-            techoUpdate: "",
-            id_sucursalUpdate: "",
-            disponibleUpdate: "",
-
+            plaza: {
+                id_vehiculo: "",
+                llave: "",
+                techo: "",
+                id_sucursal: "",
+                disponible: "",
+            },
+            plazaUpdate: {
+                id_vehiculo: "",
+                llave: "",
+                techo: "",
+                id_sucursal: "",
+                disponible: "",
+            },
+            api: api,
             modId: -1,
             consulta: [],
             errores: []
@@ -103,7 +109,7 @@ var plazas = Vue.component('plazas', {
     methods: {
         consultar: function() {
             const vue = this;
-            axios.get('http://localhost:3000/api/plazas')
+            axios.get(this.api + 'plazas')
                 .then(function(response) {
                     vue.consulta = response.data;
                 })
@@ -116,20 +122,20 @@ var plazas = Vue.component('plazas', {
             if (this.errores.length === 0) {
                 const vue = this;
                 var plaza = {
-                    id_vehiculo: this.id_vehiculo,
-                    llave: this.llave,
-                    techo: this.techo,
-                    id_sucursal: this.id_sucursal,
-                    disponible: this.disponible
+                    id_vehiculo: this.plaza.id_vehiculo,
+                    llave: this.plaza.llave,
+                    techo: this.plaza.techo,
+                    id_sucursal: this.plaza.id_sucursal,
+                    disponible: this.plaza.disponible
                 };
-                axios.post('http://localhost:3000/api/plazas', plaza)
+                axios.post(this.api + 'plazas', plaza)
                     .then(function(response) {
                         vue.consultar();
-                        vue.id_vehiculo = "";
-                        vue.llave = "";
-                        vue.techo = "";
-                        vue.id_sucursal = "";
-                        vue.disponible = "";
+                        vue.plaza.id_vehiculo = "";
+                        vue.plaza.llave = "";
+                        vue.plaza.techo = "";
+                        vue.plaza.id_sucursal = "";
+                        vue.plaza.disponible = "";
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -138,32 +144,32 @@ var plazas = Vue.component('plazas', {
         },
         modificar: function(plaza) {
             this.modId = plaza.id;
-            this.id_vehiculoUpdate = plaza.id_vehiculo;
-            this.llaveUpdate = plaza.llave;
-            this.techoUpdate = plaza.techo;
-            this.id_sucursalUpdate = plaza.id_sucursal;
-            this.disponibleUpdate = plaza.disponible;
+            this.plazaUpdate.id_vehiculoe = plaza.id_vehiculo;
+            this.plazaUpdate.llavee = plaza.llave;
+            this.plazaUpdate.techo = plaza.techo;
+            this.plazaUpdate.id_sucursal = plaza.id_sucursal;
+            this.plazaUpdate.disponible = plaza.disponible;
         },
         actualizar: function(id) {
             this.validarActualizar();
             if (this.errores.length === 0) {
                 const vue = this;
                 var plaza = {
-                    id_vehiculo: this.id_vehiculoUpdate,
-                    llave: this.llaveUpdate,
-                    techo: this.techoUpdate,
-                    id_sucursal: this.id_sucursalUpdate,
-                    disponible: this.disponibleUpdate
+                    id_vehiculo: this.plazaUpdate.id_vehiculo,
+                    llave: this.plazaUpdate.llave,
+                    techo: this.plazaUpdate.techo,
+                    id_sucursal: this.plazaUpdate.id_sucursal,
+                    disponible: this.plazaUpdate.disponible
                 };
-                axios.put('http://localhost:3000/api/plazas/' + this.modId, plaza)
+                axios.put(this.api + 'plazas/' + this.modId, plaza)
                     .then(function(response) {
                         vue.consultar();
                         vue.modId = -1;
-                        vue.id_vehiculoUpdate = "";
-                        vue.llaveUpdate = "";
-                        vue.techoUpdate = "";
-                        vue.id_sucursalUpdate = "";
-                        vue.disponibleUpdate = "";
+                        vue.plazaUpdate.id_vehiculo = "";
+                        vue.plazaUpdate.llave = "";
+                        vue.plazaUpdate.techo = "";
+                        vue.plazaUpdate.id_sucursal = "";
+                        vue.plazaUpdate.disponible = "";
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -173,7 +179,7 @@ var plazas = Vue.component('plazas', {
         eliminar: function(id) {
             console.log(id);
             const vue = this;
-            axios.delete('http://localhost:3000/api/plazas/' + id)
+            axios.delete(this.api + 'plazas/' + id)
                 .then(function(response) {
                     vue.consultar();
                 })
@@ -183,13 +189,13 @@ var plazas = Vue.component('plazas', {
         },
         validarCrear: function() {
             this.errores = [];
-            if (this.validCampo(this.id_vehiculo) == false) this.errores.push("El campo id_vehiculo es requerido");
-            if (this.validCampo(this.llave) == false) this.errores.push("El campo llave es requerido");
+            //if (this.validCampo(this.id_vehiculo) == false) this.errores.push("El campo id_vehiculo es requerido");
+            //if (this.validCampo(this.llave) == false) this.errores.push("El campo llave es requerido");
         },
         validarActualizar: function() {
             this.errores = [];
-            if (this.validCampo(this.id_vehiculoUpdate) == false) this.errores.push("El campo id_vehiculo es requerido");
-            if (this.validCampo(this.llaveUpdate) == false) this.errores.push("El campo llave es requerido");
+            //if (this.validCampo(this.id_vehiculoUpdate) == false) this.errores.push("El campo id_vehiculo es requerido");
+            //if (this.validCampo(this.llaveUpdate) == false) this.errores.push("El campo llave es requerido");
         },
         validCampo: function(campo) {
             if (campo == null || campo == 0 || /^\s+$/.test(campo)) {
