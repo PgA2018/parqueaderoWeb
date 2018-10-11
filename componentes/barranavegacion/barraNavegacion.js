@@ -14,7 +14,7 @@ var barraNavegacion = Vue.component('barra-navegacion', {
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrar <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                <li><router-link to="/admin/componente1">Parqueadero</router-link></li>
+                <li><router-link to="/admin/usuario">Usuario</router-link></li>
                 <li><router-link to="/admin/componente2">Sucursal</router-link></li>
                 <li><router-link to="/admin/plazas">Plazas</router-link></li>
                 </ul>
