@@ -8,6 +8,7 @@ import { login } from "../componentes/sesion/login.js";
 import { barraInferior } from "../componentes/barraInferior/barraInferior.js";
 import { notFound } from "../componentes/not-found/not-found.js"
 import { parqueadero } from "../componentes/parqueadero/parqueadero.js";
+import { sucursal } from "../componentes/sucursal/sucursal.js";
 
 const routes = [
     { path: '/', component: inicio },
@@ -17,6 +18,7 @@ const routes = [
     { path: '/admin/plazas', component: plazas },
     { path: '/admin/usuario', component: usuario },
     { path: '/admin/parqueadero', component: parqueadero },
+    { path: '/admin/sucursal', component: sucursal },
     { path: '*', component: notFound },
 ];
 
