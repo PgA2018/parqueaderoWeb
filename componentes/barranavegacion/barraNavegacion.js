@@ -21,6 +21,7 @@ var barraNavegacion = Vue.component('barra-navegacion', {
                 <li><router-link to="/admin/parqueadero">Parqueadero</router-link></li>
                 <li><router-link to="/admin/sucursal">Sucursal</router-link></li>
                 <li><router-link to="/admin/plazas">Plazas</router-link></li>
+                <li><router-link to="/admin/facturas">Facturas</router-link></li>
                 </ul>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
