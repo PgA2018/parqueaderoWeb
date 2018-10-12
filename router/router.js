@@ -6,6 +6,8 @@ import { nosotros } from "../componentes/nosotros/nosotros.js";
 import { unete } from "../componentes/unete/unete.js";
 import { login } from "../componentes/sesion/login.js";
 import { barraInferior } from "../componentes/barraInferior/barraInferior.js";
+import { notFound } from "../componentes/not-found/not-found.js"
+import { parqueadero } from "../componentes/parqueadero/parqueadero.js";
 
 const routes = [
     { path: '/', component: inicio },
@@ -14,6 +16,8 @@ const routes = [
     { path: '/unete', component: unete },
     { path: '/admin/plazas', component: plazas },
     { path: '/admin/usuario', component: usuario },
+    { path: '/admin/parqueadero', component: parqueadero },
+    { path: '*', component: notFound },
 ];
 
 const router = new VueRouter({
