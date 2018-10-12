@@ -27,21 +27,12 @@ var usuario = Vue.component('usuario', {
                     <br>
                     <br>
 
-
-                    
-
-                        <!--select class="form-control"  v-model="parqueadero.id">
-                        <option value="">Elija el tipo de usuario</option>
-                        <option v-for="con in consultaparqueadero" v-bind:value="con.id">
-                            {{ con.nombre }}
-                        </option>
-                        </select-->
-
-
-
-
-
-                    <input v-model="usuario.id_parqueadero" v-on:keyup.enter="crear" type="email" class="form-control" placeholder="parqueadero">
+                        <select class="form-control"  v-model="parqueadero.id">
+                            <option value="">Elija parqueadero</option>
+                            <option v-for="con in consultaparqueadero" v-bind:value="con.id">
+                                {{ con.nombre }}
+                            </option>
+                        </select>
                     <br>
                     <input v-on:click="crear" type="button" value="Agregar" class="btn btn-success">
                     <br><br>
@@ -158,6 +149,7 @@ var usuario = Vue.component('usuario', {
     created: function() {
         this.consultar();
         this.consultartipo();
+        this.consultarparqueadero();
     },
     methods: {
         consultar: function() {
@@ -208,7 +200,7 @@ var usuario = Vue.component('usuario', {
                     telefono: this.usuario.telefono,
                     password: this.usuario.password,
                     tipo_usuario: this.tipousuario.id,
-                    id_parqueadero: this.usuario.id_parqueadero
+                    id_parqueadero: this.parqueadero.id
                 };
                 axios.post(this.api + 'usuario', usuario)
                     .then(function(response) {
